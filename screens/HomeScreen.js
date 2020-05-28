@@ -1,14 +1,60 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
+
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
+  const [count, setCount ] = React.useState(0); 
+  const onIncrement = (e) => {
+    e.preventDefault();
+    console.log('onIncrement link was clicked.');
+    setCount(count+1); //cannot use count++ as its a statement. not a value.
+  }
+
+  function onDecrement() {
+    setCount(count-1); //cannot use count-- as its a statement. not a value.
+  }
+
+  function onReset() {
+    setCount(0);
+  }
+
+  
+  
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        
+         
+        <View style={{ padding: 10 }}>
+          <Text style={styles.getStartedText}>Count is: {count}</Text>
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Enter count"
+            onChangeText={text => setCount(Number(text))}
+            value={count}
+          />
+          <Button
+            title="Increment"
+            onPress={onIncrement}
+            // onPress={() => Alert.alert('Simple Button pressed')}
+          />
+          <Button
+            title="Decrement"
+            onPress={onDecrement}
+            // onPress={() => Alert.alert('Simple Button pressed')}
+          />
+          <Button
+            title="Reset"
+            onPress={onReset}
+            // onPress={() => Alert.alert('Simple Button pressed')}
+          />
+        </View>
+
+
         <View style={styles.welcomeContainer}>
           <Image
             source={
