@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
-
+import * as firebase from 'firebase';
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
@@ -25,6 +25,41 @@ export default function HomeScreen() {
     document.title = `${count} count`;
   }, [count]); // Only re-run the effect if count changes
   
+  React.useEffect(() => {
+    //Get authenticated user
+    var user = firebase.auth().currentUser;
+    console.log('user:', user);
+
+    //Insert collection entry
+    var db = firebase.firestore();
+    db.collection("delete").add({
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+    
+    //Read collection
+    db.collection("users").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id , '=>', doc.data()); //console.log(`${doc.id} => ${doc.data()}`);
+      });
+    });
+
+
+
+  }, []); // will trigger the callback only after the first render.
+  
+  React.useEffect(() => {
+    console.log('Called everytime after render');
+  }); // useEffect runs by default after every render of the component (thus causing an effect).
+
+  
   
   return (
     <View style={styles.container}>
@@ -37,7 +72,7 @@ export default function HomeScreen() {
             style={{ height: 40 }}
             placeholder="Enter count"
             onChangeText={text => setCount(Number(text))}
-            value={count}
+            value={String(count)}
           />
           <Button
             title="Increment"

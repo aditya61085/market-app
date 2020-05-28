@@ -2,12 +2,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-
+import * as firebase from 'firebase';
 import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
+import ApiKeys from './constants/ApiKeys';
 
 const Stack = createStackNavigator();
+if(!firebase.apps.length) firebase.initializeApp(ApiKeys.firebaseConfig);
 
 export default function App(props) {
   const isLoadingComplete = useCachedResources();
