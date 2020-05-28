@@ -21,7 +21,9 @@ export default function HomeScreen() {
   function onReset() {
     setCount(0);
   }
-
+  React.useEffect(() => {
+    document.title = `${count} count`;
+  }, [count]); // Only re-run the effect if count changes
   
   
   return (
