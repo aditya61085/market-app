@@ -5,29 +5,65 @@ import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, B
 import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import { MonoText } from '../components/StyledText';
+import getSummaryData from '../assets/jsons/get-summary.json';
 
 export default function HomeScreen() {
+
+
+  //Counter example basic
   const [count, setCount ] = React.useState(0); 
   const onIncrement = (e) => {
     e.preventDefault();
     console.log('onIncrement link was clicked.');
     setCount(count+1); //cannot use count++ as its a statement. not a value.
-  }
-
-  function onDecrement() {
+  }  
+  const onDecrement = () => {
     setCount(count-1); //cannot use count-- as its a statement. not a value.
   }
-
-  function onReset() {
+  const onReset = () => {
     setCount(0);
   }
+
+
+
+
   React.useEffect(() => {
     document.title = `${count} count`;
   }, [count]); // Only re-run the effect if count changes
   
   React.useEffect(() => {
 
+    if (__DEV__) {
+      console.log(getSummaryData);
+    } else {
+      fetch('./assets/jsons/get-summary.json', {
+      //fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&symbol=AAPL", {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+          "x-rapidapi-key": "a1fc569458msh81e623441521b74p10defejsn1c6e1cdf8384"
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
 
+
+
+    // fetch("https://pomber.github.io/covid19/timeseries.json")
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log('data["US"]:', data["US"]);
+    //     data["US"].forEach(({ date, confirmed, recovered, deaths }) =>
+    //       console.log(`${date} active cases: ${confirmed - recovered - deaths}`)
+    //     );
+    //   })
+    //   .catch((error) => console.error(error));
+    
     //Get authenticated user
     // var user = firebase.auth().currentUser;
     // console.log('user:', user);
