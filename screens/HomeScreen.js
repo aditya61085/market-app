@@ -26,30 +26,32 @@ export default function HomeScreen() {
   }, [count]); // Only re-run the effect if count changes
   
   React.useEffect(() => {
+
+
     //Get authenticated user
-    var user = firebase.auth().currentUser;
-    console.log('user:', user);
+    // var user = firebase.auth().currentUser;
+    // console.log('user:', user);
 
     //Insert collection entry
-    var db = firebase.firestore();
-    db.collection("delete").add({
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
+    // var db = firebase.firestore();
+    // db.collection("delete").add({
+    //   first: "Ada",
+    //   last: "Lovelace",
+    //   born: 1815
+    // })
+    // .then(function(docRef) {
+    //     console.log("Document written with ID: ", docRef.id);
+    // })
+    // .catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    // });
     
     //Read collection
-    db.collection("users").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id , '=>', doc.data()); //console.log(`${doc.id} => ${doc.data()}`);
-      });
-    });
+    // db.collection("users").get().then((querySnapshot) => {
+    //   querySnapshot.forEach((doc) => {
+    //     console.log(doc.id , '=>', doc.data()); //console.log(`${doc.id} => ${doc.data()}`);
+    //   });
+    // });
 
 
 
