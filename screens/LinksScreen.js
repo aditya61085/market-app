@@ -4,8 +4,44 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
+
+const { useReducer } = React
+const initialCount = 0;
+const init = (initialCount) => {
+  return {count: initialCount};
+}
+const counterReducer = (state, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + 1 };
+    case 'DECREMENT':
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+};
+
+
 export default function LinksScreen() {
+  const [state, dispatch] = useReducer(counterReducer, initialCount, init);
+
+  const handleIncrease = () => {
+    dispatch({ type: 'INCREMENT' });
+  };
+  const handleDecrease = () => {
+    dispatch({ type: 'DECREMENT' });
+  };
+
   return (
+    <View>
+      <p>Count: {state.count}</p>
+      <button type="button" onClick={handleIncrease}className="button is-grey">
+        +
+      </button>
+      <button type="button" onClick={handleDecrease} className="button is-dark">
+        -
+      </button>
+      
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <OptionButton
         icon="md-school"
@@ -26,6 +62,7 @@ export default function LinksScreen() {
         isLastOption
       />
     </ScrollView>
+    </View>
   );
 }
 
