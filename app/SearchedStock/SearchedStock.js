@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
 import { SearchedStockContext } from '../contexts/SearchedStockContext';
+import styles from '../Global/Global.component.style';
 
 const SearchedStock = () => {
   const {searchedStock, dispatch} = useContext(SearchedStockContext);
@@ -19,10 +20,8 @@ const SearchedStock = () => {
 
   return (
     <View>
-      <Text>Symbol: {searchedStock.symbol}
-      </Text>
-      <Button onPress={updateSymbol} title="Update Stock" />
-      </View>
+      <Text style={styles.basicContent}>Symbol: {searchedStock.symbol}</Text>
+    </View>
   );
 }
 
