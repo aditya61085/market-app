@@ -7,6 +7,7 @@ import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 import ApiKeys from './constants/ApiKeys';
+import SearchedStockProvider from './app/contexts/SearchedStockContext';
 
 const Stack = createStackNavigator();
 if(!firebase.apps.length) firebase.initializeApp(ApiKeys.firebaseConfig);
@@ -18,6 +19,7 @@ export default function App(props) {
     return null;
   } else {
     return (
+      <SearchedStockProvider>
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
         <NavigationContainer linking={LinkingConfiguration}>
@@ -26,6 +28,7 @@ export default function App(props) {
           </Stack.Navigator>
         </NavigationContainer>
       </View>
+      </SearchedStockProvider>
     );
   }
 }
