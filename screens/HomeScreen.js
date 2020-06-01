@@ -1,14 +1,16 @@
 import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
+import React, { useState, useContext } from "react";
 import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import { MonoText } from '../components/StyledText';
-import getSummaryData from '../assets/jsons/get-summary.json';
+// import getSummaryData from '../assets/jsons/get-summary.json';
 
+import SearchedStockProvider from '../app/contexts/SearchedStockContext';
+import SearchedStock from '../app/SearchedStock/SearchedStock';
 export default function HomeScreen() {
-
+  
 
   //Counter example basic
   const [count, setCount ] = React.useState(0); 
@@ -34,10 +36,10 @@ export default function HomeScreen() {
   React.useEffect(() => {
 
     if (__DEV__) {
-      console.log(getSummaryData);
+      // console.log(getSummaryData);
     } else {
-      fetch('./assets/jsons/get-summary.json', {
-      //fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&symbol=AAPL", {
+      // fetch('./assets/jsons/get-summary.json', {
+      fetch("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&symbol=AAPL", {
         "method": "GET",
         "headers": {
           "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
@@ -88,21 +90,26 @@ export default function HomeScreen() {
     //     console.log(doc.id , '=>', doc.data()); //console.log(`${doc.id} => ${doc.data()}`);
     //   });
     // });
-
-
-
   }, []); // will trigger the callback only after the first render.
   
   React.useEffect(() => {
     console.log('Called everytime after render');
   }); // useEffect runs by default after every render of the component (thus causing an effect).
 
-  
-  
+
+
+
+
+
+
   return (
+    
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         
+        <SearchedStockProvider>
+          <SearchedStock></SearchedStock>
+        </SearchedStockProvider>
          
         <View style={{ padding: 10 }}>
           <Text style={styles.getStartedText}>Count is: {count}</Text>
