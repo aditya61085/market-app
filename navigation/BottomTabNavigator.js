@@ -5,8 +5,11 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 
+import MarketOverviewScreen from "../app/modules/MarketOverview/MarketOverviewScreen";
+
+
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'MarketOverview';
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
@@ -16,6 +19,16 @@ export default function BottomTabNavigator({ navigation, route }) {
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+      <BottomTab.Screen
+        name="MarketOverview"
+        component={MarketOverviewScreen}
+        options={{
+          title: "Market Overview",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="ios-home" />
+          ),
+        }}
+      />
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}

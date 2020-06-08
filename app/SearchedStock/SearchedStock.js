@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native';
 import { SearchedStockContext } from '../contexts/SearchedStockContext';
-import styles from '../Global/Global.component.style';
+import styles from '../globals/Global.component.style';
 
 const SearchedStock = () => {
   const {searchedStock, dispatch} = useContext(SearchedStockContext);
